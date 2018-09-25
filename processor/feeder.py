@@ -4,7 +4,10 @@ import torch
 # operation
 from processor.tools import *
 
-
+'''
+本模型采用numpy的npy数据格式
+label必须以0开始
+'''
 class Feeder(Dataset):
     def __init__(self, is_train, use_gpu=True):
         self.use_gpu = use_gpu

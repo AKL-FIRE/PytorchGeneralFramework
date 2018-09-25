@@ -128,6 +128,12 @@ class Train(object):
     # 仅仅计算总分类正确率
     @staticmethod
     def accuracy(output_vali, target, criterion):
+        '''
+        :param output_vali: 模型输出分类概率
+        :param target: 模型标签值
+        :param criterion: loss函数
+        :return: 一个epoch的loss平均值，一个epoch的准确度平均值，一个epoch的loss总和，一个epoch的分类正确个数总和
+        '''
         loss = criterion(output_vali, target)
         eval_loss = loss.data[0] * target.size(0)
         _, pred = torch.max(output_vali, 1)
@@ -138,6 +144,12 @@ class Train(object):
     # 分类计算各类正确率
     @staticmethod
     def accuracy_distinct(output_vali, target, criterion):
+        '''
+        :param output_vali: 模型输出分类概率
+        :param target: 模型标签值
+        :param criterion: loss函数
+        :return: 每类的正确个数，一个epoch的总loss，每类所包含的个数（用于分别计算正确率）
+        '''
         loss = criterion(output_vali, target)
         eval_loss = loss.data[0] * target.size(0)
         _, pred = torch.max(output_vali, 1)
@@ -150,6 +162,11 @@ class Train(object):
 
     # 根据迭代epoch进行学习率衰减
     def adjust_learning_rate(self, optimizer, epoch):
+        '''
+        :param optimizer: 优化器
+        :param epoch: 当前迭代的epoch数
+        :return: None
+        '''
         if epoch % 1 == 0:
             print('################## Adjust Learning rate ###############')
             print('New learning rate is : {}'.format(self.base_lr * 0.99))
@@ -160,6 +177,11 @@ class Train(object):
 
     # 指数学习率衰减
     def adjust_learning_rate_exp(self, optimizer, epoch):
+        '''
+        :param optimizer: 优化器
+        :param epoch: 当前迭代的epoch数
+        :return: None
+        '''
         """Sets the learning rate to the initial LR decayed by 10 every 10 epochs"""
         if epoch % 10 == 0:
             print('################## Adjust Learning rate ###############')
